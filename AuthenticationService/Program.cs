@@ -1,5 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
 using MySql.Data.MySqlClient;
 
 namespace AuthenticationService
@@ -12,7 +14,39 @@ namespace AuthenticationService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddRateLimiter(options =>
+            {
+                options.AddPolicy("LoginPolicy", context =>
+                {
+                    var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+                    return RateLimitPartition.GetTokenBucketLimiter(ip, key => new TokenBucketRateLimiterOptions
+                    {
+                        TokenLimit = 2,
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                        QueueLimit = 0,
+                        ReplenishmentPeriod = TimeSpan.FromSeconds(60),
+                        TokensPerPeriod = 2,
+                        AutoReplenishment = true
+                    });
+                });
+
+                options.AddFixedWindowLimiter("fixed", opt =>
+                {
+                    opt.PermitLimit = 2; // Amount of attemps
+                    opt.Window = TimeSpan.FromSeconds(10); // Time before PermitLimit is reached
+
+                    // 2 tries per 10 seconds
+
+                    opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                    opt.QueueLimit = 2;
+                });
+            });
+
             var app = builder.Build();
+
+            app.UseRateLimiter();
 
             string connString = builder.Configuration.GetConnectionString("Default");
 
@@ -53,9 +87,8 @@ namespace AuthenticationService
                 var loginHash = HashPassword(input.Password);
 
                 return storedHash == loginHash ? Results.Ok("Login successful!") : Results.Unauthorized();
-            });
-
-            app.MapGet("/auth/test", () => "Hello WORLD!");
+            })
+                .RequireRateLimiting("fixed");
 
             app.Run();
         }

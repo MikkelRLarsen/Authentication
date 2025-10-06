@@ -16,6 +16,11 @@ namespace BlazorGui
 
             builder.Services.AddScoped(sp => new HttpClient());
 
+            builder.Services.AddHttpClient("AuthenticationService", client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:8080");
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -1,5 +1,7 @@
 ﻿@page "/login"
-@inject HttpClient Http
+@inject NavigationManager _navManager
+@inject IHttpClientFactory ClientFactory
+@rendermode InteractiveServer
 
 <h3>Login</h3>
 
@@ -16,8 +18,25 @@
 
     async Task LoginHandler()
     {
-        Console.WriteLine("Login kaldt");
-        var response = await Http.PostAsJsonAsync("http://localhost:8080/auth/login", new { username, password });
-        message = await response.Content.ReadAsStringAsync();
+        HttpClient client = ClientFactory.CreateClient("AuthenticationService");
+
+        var response = await client.PostAsJsonAsync("auth/login", new { username, password });
+
+        if (response.IsSuccessStatusCode)
+        {
+            _navManager.NavigateTo("counter");
+        }
+        else
+        {
+            message = "Wrong password";
+        }
+    }
+
+    async Task HandleShortCut(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await LoginHandler();
+        }
     }
 }
