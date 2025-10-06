@@ -1,4 +1,5 @@
 ﻿@page "/login"
+@using System.Net
 @inject NavigationManager _navManager
 @inject IHttpClientFactory ClientFactory
 @rendermode InteractiveServer
@@ -25,6 +26,11 @@
         if (response.IsSuccessStatusCode)
         {
             _navManager.NavigateTo("counter");
+        }
+        else if (response.StatusCode == HttpStatusCode.TooManyRequests)
+        {
+            var retryAfter = response.Headers.RetryAfter?.Delta?.TotalSeconds ?? 10;
+            message = $"For mange forsøg — prøv igen om {retryAfter:N0} sekunder.";
         }
         else
         {
