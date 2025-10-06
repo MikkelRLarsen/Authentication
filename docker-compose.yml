@@ -29,7 +29,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: usersdb
     volumes:
-      - ./AuthenticationService/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - foxtrot
 
