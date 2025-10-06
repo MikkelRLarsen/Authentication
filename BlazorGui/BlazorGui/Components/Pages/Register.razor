@@ -1,0 +1,24 @@
+﻿@page "/register"
+@inject HttpClient Http
+@rendermode InteractiveAuto
+
+<h3>Register</h3>
+
+<input @bind="username" placeholder="Username" />
+<input @bind="password" placeholder="Password" type="password" />
+<button @onclick="RegisterHandler">Register</button>
+
+<p>@message</p>
+
+@code {
+    string username = "";
+    string password = "";
+    string message = "";
+
+    async Task RegisterHandler()
+    {
+        Console.WriteLine("Register kaldt");
+        var response = await Http.PostAsJsonAsync("http://localhost:8080/auth/register", new { username, password });
+        message = await response.Content.ReadAsStringAsync();
+    }
+}

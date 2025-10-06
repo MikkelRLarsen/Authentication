@@ -1,0 +1,38 @@
+services:
+  proxy:
+    build: ./Proxy
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - "8080:5000"
+    depends_on:
+      - authenticationservice
+    networks:
+      - foxtrot
+
+  authenticationservice:
+    build: ./AuthenticationService
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__Default=server=usersdb;user=root;password=root;database=usersdb
+    depends_on:
+      - usersdb
+    networks:
+      - foxtrot
+    expose:
+      - "5000" # Metadata til inspektion
+
+  usersdb:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: usersdb
+    volumes:
+      - ./AuthenticationService/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - foxtrot
+
+networks:
+    foxtrot:
+        external: true
