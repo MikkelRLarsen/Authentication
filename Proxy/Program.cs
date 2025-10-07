@@ -10,7 +10,4 @@ var app = builder.Build();
 // Map YARP
 app.MapReverseProxy();
 
-app.Urls.Clear();
-app.Urls.Add("http://+:8080");
-
 app.Run();
