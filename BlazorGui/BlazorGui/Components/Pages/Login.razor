@@ -27,14 +27,18 @@
         {
             _navManager.NavigateTo("counter");
         }
-        else if (response.StatusCode == HttpStatusCode.TooManyRequests)
+        else if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
         {
             var retryAfter = response.Headers.RetryAfter?.Delta?.TotalSeconds ?? 10;
             message = $"For mange forsøg — prøv igen om {retryAfter:N0} sekunder.";
         }
-        else
+        else if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
             message = "Wrong password";
+        }
+        else
+        {
+            message = $"{response.RequestMessage}";
         }
     }
 
