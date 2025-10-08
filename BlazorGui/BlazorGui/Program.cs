@@ -1,5 +1,7 @@
 using BlazorGui.Client.Pages;
 using BlazorGui.Components;
+using BlazorGui.Shared;
+using Shared.InversionOfControl;
 
 namespace BlazorGui
 {
@@ -20,6 +22,27 @@ namespace BlazorGui
             {
                 client.BaseAddress = new Uri("http://localhost:8080");
             });
+
+            // Creates our IoC Container
+            var masterIoC = ServiceProvider_IoC.CreateServiceProvider(builder.Configuration);
+
+            // Add all our Singleton servies to Blazor
+            foreach (var singletonType in ServiceProvider_IoC.SingletonServices)
+            {
+                builder.Services.AddSingleton(singletonType, ioc => masterIoC.GetRequiredService(singletonType));
+            }
+
+            // Add all out Transient services to Blazor
+			foreach (var transientType in ServiceProvider_IoC.SingletonServices)
+			{
+				builder.Services.AddTransient(transientType, ioc => masterIoC.GetRequiredService(transientType));
+			}
+
+            // Add all out Scoped services to Blazor using ScopedServiceProviderBridge, so our Scoped Services have correct states on its depedencies
+			foreach (var scopedType in ServiceProvider_IoC.ScopedServices)
+            {
+				builder.Services.AddScoped(typeof(ScopedServiceProviderBridge<>).MakeGenericType(scopedType));
+			}
 
             var app = builder.Build();
 
