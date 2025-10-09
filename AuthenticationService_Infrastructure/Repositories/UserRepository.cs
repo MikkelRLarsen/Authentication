@@ -1,5 +1,6 @@
 ﻿using AuthenticationService_Application.DTOs;
 using AuthenticationService_Application.InfrastructureInterfaces;
+using AuthenticationServie_Shared.InversionOfControl.ExternalConfig;
 using MySql.Data.MySqlClient;
 
 namespace AuthenticationService_Infrastructure.Repositories
@@ -8,9 +9,9 @@ namespace AuthenticationService_Infrastructure.Repositories
 	{
 		private readonly string _connectionString;
 
-		public UserRepository(string connectionString)
+		public UserRepository(IConfigurationDictonary configurationDictonary)
 		{
-			_connectionString = connectionString;
+			_connectionString = configurationDictonary.GetValue("DefaultConnection");
 		}
 
 		public async Task<UserDto?> GetUserByUsernameAsync(string username)

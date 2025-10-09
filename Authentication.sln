@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationService_Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationService_Infrastructure", "AuthenticationService_Infrastructure\AuthenticationService_Infrastructure.csproj", "{FE8190DC-C250-44F4-B647-7E868F16EC9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationServie_Shared", "AuthenticationServie_Shared\AuthenticationServie_Shared.csproj", "{C62465C0-8FF1-4AED-BAE8-3E4CD161F93E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationService_Shared", "AuthenticationService_Shared\AuthenticationService_Shared.csproj", "{C62465C0-8FF1-4AED-BAE8-3E4CD161F93E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
