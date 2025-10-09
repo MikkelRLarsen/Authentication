@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AuthenticationSerivce_Domain\AuthenticationSerivce_Domain.csproj" />
     <ProjectReference Include="..\AuthenticationService_Application\AuthenticationService_Application.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
 </Project>

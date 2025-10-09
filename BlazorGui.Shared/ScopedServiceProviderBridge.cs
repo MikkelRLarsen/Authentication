@@ -22,7 +22,7 @@ namespace BlazorGui.Shared
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
+			_scope.Dispose();
 		}
 	}
 }

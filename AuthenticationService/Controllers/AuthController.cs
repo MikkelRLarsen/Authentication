@@ -2,6 +2,7 @@
 using AuthenticationService_Application.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shared.InversionOfControl;
 
 namespace AuthenticationService_Api.Controllers
 {
@@ -9,11 +10,11 @@ namespace AuthenticationService_Api.Controllers
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
-		private readonly LoginCommand _loginHandler;
+		private readonly ILoginCommand _loginCommand;
 
-		public AuthController(LoginCommand loginHandler)
+		public AuthController(ILoginCommand loginCommand)
 		{
-			_loginHandler = loginHandler;
+			_loginCommand = loginCommand;
 		}
 
 		// POST: api/auth/Login
@@ -23,7 +24,7 @@ namespace AuthenticationService_Api.Controllers
 			if (string.IsNullOrWhiteSpace(command.Username) || string.IsNullOrWhiteSpace(command.Password))
 				return BadRequest("Username and Password are required.");
 
-			var jwtToken = await _loginHandler.ValidateLoginInformation(command);
+			var jwtToken = await _loginCommand.ValidateLoginInformation(command);
 
 			if (jwtToken == null)
 				return Unauthorized("Invalid username or password.");

@@ -1,6 +1,4 @@
-﻿using AuthenticationService_Application.InfrastructureInterfaces;
-using AuthenticationService_Infrastructure.Repositories;
-using AuthenticationServie_Shared.InversionOfControl.ExternalConfig;
+﻿using AuthenticationServie_Shared.InversionOfControl.ExternalConfig;
 using AuthenticationServie_Shared.InversionOfControl.HttpSetup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,9 +34,8 @@ namespace AuthenticationServie_Shared
 			// Singleton Services added here
 
 			// Scoped Services added here
-			/* Example
-			 * RegisterService<IEmployeeService, EmployeeService>(services, ServiceLifetimeType.Scoped);		 
-			 */
+			 RegisterService<IEmployeeService, EmployeeService>(services, ServiceLifetimeType.Scoped);		 
+
 
 
 			// Transient Services added here

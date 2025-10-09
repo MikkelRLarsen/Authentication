@@ -26,15 +26,19 @@ namespace BlazorGui
             }
 
             // Add all out Transient services to Blazor
-			foreach (var transientType in ServiceProvider_IoC.SingletonServices)
+			foreach (var transientType in ServiceProvider_IoC.TransientServices)
 			{
 				builder.Services.AddTransient(transientType, ioc => masterIoC.GetRequiredService(transientType));
 			}
 
-            // Add all out Scoped services to Blazor using ScopedServiceProviderBridge, so our Scoped Services have correct states on its depedencies
+            // Add all out Scoped services to Blazor, with CreateScope so our Scoped Services have correct states on its depedencies
 			foreach (var scopedType in ServiceProvider_IoC.ScopedServices)
             {
-				builder.Services.AddScoped(typeof(ScopedServiceProviderBridge<>).MakeGenericType(scopedType));
+                builder.Services.AddScoped(scopedType, ioc =>
+                {
+                    var scope = ServiceProvider_IoC.CreateScope();
+                    return scope.ServiceProvider.GetRequiredService(scopedType);
+                });
 			}
 
             var app = builder.Build();
