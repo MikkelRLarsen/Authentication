@@ -16,13 +16,6 @@ namespace BlazorGui
                 .AddInteractiveServerComponents()
                 .AddInteractiveWebAssemblyComponents();
 
-            builder.Services.AddScoped(sp => new HttpClient());
-
-            builder.Services.AddHttpClient("AuthenticationService", client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:8080");
-            });
-
             // Creates our IoC Container
             var masterIoC = ServiceProvider_IoC.CreateServiceProvider(builder.Configuration);
 

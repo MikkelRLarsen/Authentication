@@ -1,9 +1,16 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AuthenticationService_Application.InfrastructureInterfaces;
+using AuthenticationService_Infrastructure.Repositories;
+using AuthenticationServie_Shared.InversionOfControl.ExternalConfig;
+using AuthenticationServie_Shared.InversionOfControl.HttpSetup;
 using Microsoft.Extensions.Configuration;
-using Shared.InversionOfControl.HttpSetup;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Shared.InversionOfControl
+namespace AuthenticationServie_Shared
 {
 	public class ServiceProvider_IoC
 	{
@@ -19,7 +26,9 @@ namespace Shared.InversionOfControl
 
 			ServiceCollection services = new ServiceCollection();
 
-			// Configuration from IConfig needed for Services are definered here
+			// ConfigurationDictonary are injected into ServiceCollection
+			services.AddSingleton<IConfigurationDictonary, ConfigurationDictonary>(sp => new ConfigurationDictonary(configuration));
+			SingletonServices.Add(typeof(IConfigurationDictonary));
 
 			// HttpClient injection into ServiceCollection
 			HttpClientModule.RegisterHttpClients(services, configuration);
@@ -31,6 +40,7 @@ namespace Shared.InversionOfControl
 			 * RegisterService<IEmployeeService, EmployeeService>(services, ServiceLifetimeType.Scoped);		 
 			 */
 
+
 			// Transient Services added here
 
 			// DbContext added here
@@ -40,7 +50,7 @@ namespace Shared.InversionOfControl
 			return _serviceProvider;
 		}
 
-		private static void RegisterService<TService, TImplementation>(IServiceCollection services,ServiceLifetimeType lifetime)
+		private static void RegisterService<TService, TImplementation>(IServiceCollection services, ServiceLifetimeType lifetime)
 			where TService : class
 			where TImplementation : class, TService
 		{
@@ -68,7 +78,7 @@ namespace Shared.InversionOfControl
 
 		public static ServiceProvider GetServiceProvider() => _serviceProvider ?? throw new Exception("Service provider was not created. Run CreateServiceProviderFirst!");
 		public static IServiceScope CreateScope() => GetServiceProvider().CreateScope();
-	}	
+	}
 
 	internal enum ServiceLifetimeType
 	{

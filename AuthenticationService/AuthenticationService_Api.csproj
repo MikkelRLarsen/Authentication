@@ -13,4 +13,9 @@
     <PackageReference Include="MySql.Data" Version="9.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AuthenticationSerivce_Domain\AuthenticationSerivce_Domain.csproj" />
+    <ProjectReference Include="..\AuthenticationService_Application\AuthenticationService_Application.csproj" />
+  </ItemGroup>
+
 </Project>
