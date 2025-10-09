@@ -11,9 +11,9 @@ namespace AuthenticationService_Infrastructure.Authentication
 	{
 		private readonly string _jwtSecret;
 
-		public AuthService(string jwtSecret)
+		public AuthService(IConfigurationDictonary config)
 		{
-			_jwtSecret = jwtSecret;
+			_jwtSecret = config.GetValue("JwtSecret");
 		}
 
 		public string GenerateToken(User user)
