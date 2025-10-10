@@ -28,6 +28,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorGui.Shared", "BlazorGui.Shared\BlazorGui.Shared.csproj", "{B1C6FDA7-5EA9-4BDF-9AF3-4BE8EB5C7F56}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthenticationServiceSetup", "AuthenticationServiceSetup", "{A05A3ED4-3D31-4B0F-9553-9F5CF8C2A20C}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		AuthenticationService\Dockerfile = AuthenticationService\Dockerfile
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationSerivce_Domain", "AuthenticationSerivce_Domain\AuthenticationSerivce_Domain.csproj", "{C97E12D7-BA43-4214-BB9D-0F3A9669620D}"
 EndProject

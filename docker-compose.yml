@@ -1,26 +1,18 @@
 services:
-  proxy:
-    build: ./Proxy
-    environment:
-      - ASPNETCORE_URLS=http://+:5000
-    ports:
-      - "8080:5000"
-    depends_on:
-      - authenticationservice
-    networks:
-      - foxtrot
-
   authenticationservice:
-    build: ./AuthenticationService
+    build:
+      context: ./AuthenticationService  # 👈 ændret
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:5000
       - ConnectionStrings__Default=server=usersdb;user=root;password=root;database=usersdb
+      - Jwt__Secret=LuckyNumberFoxtrot
     depends_on:
       - usersdb
     networks:
       - foxtrot
-    expose:
-      - "5000" # Metadata til inspektion
+    ports:
+      - "8081:5000"
 
   usersdb:
     image: mysql:8.0
@@ -34,5 +26,5 @@ services:
       - foxtrot
 
 networks:
-    foxtrot:
-        external: true
+  foxtrot:
+    external: true

@@ -14,8 +14,8 @@ namespace AuthenticationServie_Shared.InversionOfControl.ExternalConfig
 		public ConfigurationDictonary(IConfiguration configuration)
 		{
 			// Add configurations
-			_configurations.Add("JwtSecret", configuration["JwtSecret"]!);
-			_configurations.Add("DefaultConnection", configuration["DefaultConnection"]!);
+			_configurations.Add("JwtSecret", configuration["Jwt:Secret"]!);
+			_configurations.Add("DefaultConnection", configuration["Default:Connection"]!);
 		}
 
 		public string GetValue(string key)

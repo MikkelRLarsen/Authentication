@@ -1,8 +1,6 @@
 ﻿using AuthenticationService_Application.Commands.Login;
 using AuthenticationService_Application.DTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Shared.InversionOfControl;
 
 namespace AuthenticationService_Api.Controllers
 {

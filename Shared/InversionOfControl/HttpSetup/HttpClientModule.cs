@@ -9,7 +9,8 @@ namespace Shared.InversionOfControl.HttpSetup
 		internal static void RegisterHttpClients(IServiceCollection services, IConfiguration config)
 		{
 			// Defined in appsetting or with Enviroment settings
-			var baseUrl = config["Api:BaseUrl"] ?? throw new Exception("Api:BaseUrl not configuered");
+			//var baseUrl = config["Api:BaseUrl"] ?? throw new Exception("Api:BaseUrl not configuered");
+			string baseUrl = "localhost:8081";
 
 			// Microsoft’s factory
 			services.AddHttpClient();

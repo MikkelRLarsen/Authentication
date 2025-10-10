@@ -34,7 +34,7 @@ namespace AuthenticationServie_Shared
 			// Singleton Services added here
 
 			// Scoped Services added here
-			 RegisterService<IEmployeeService, EmployeeService>(services, ServiceLifetimeType.Scoped);		 
+			// RegisterService<IEmployeeService, EmployeeService>(services, ServiceLifetimeType.Scoped);		 
 
 
 

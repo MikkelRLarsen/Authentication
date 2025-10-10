@@ -1,9 +1,9 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.RateLimiting;
+using AuthenticationServie_Shared;
 using Microsoft.AspNetCore.RateLimiting;
 using MySql.Data.MySqlClient;
-using Shared.InversionOfControl;
 
 namespace AuthenticationService
 {

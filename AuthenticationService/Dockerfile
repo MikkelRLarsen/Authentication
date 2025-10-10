@@ -1,26 +1,36 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
+# --- Base image ---
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
+EXPOSE 5000
 
-# This stage is used to build the service project
+# --- Build image ---
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /src # Vi sætter workdir til src
+WORKDIR /src
 
-COPY AuthenticationService.csproj ./
-RUN dotnet restore "AuthenticationService.csproj"
+# Kopiér solution-fil og projektfiler (én mappe op)
+COPY ../Authentication.sln ./
+COPY ../AuthenticationService_Api/*.csproj AuthenticationService_Api/
+COPY ../AuthenticationService_Application/*.csproj AuthenticationService_Application/
+COPY ../AuthenticationSerivce_Domain/*.csproj AuthenticationSerivce_Domain/
+COPY ../AuthenticationService_Infrastructure/*.csproj AuthenticationService_Infrastructure/
+COPY ../AuthenticationService_Shared/*.csproj AuthenticationService_Shared/
 
-COPY . ./
-RUN dotnet build "AuthenticationService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+# Restore afhængigheder
+RUN dotnet restore "Authentication.sln"
 
-# This stage is used to publish the service project to be copied to the final stage
+# Kopiér resten af solutionen
+COPY .. .
+
+# Byg API-projektet
+RUN dotnet build "AuthenticationService_Api/AuthenticationService_Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# --- Publish stage ---
 FROM build AS publish
-RUN dotnet publish "AuthenticationService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "AuthenticationService_Api/AuthenticationService_Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+# --- Runtime stage ---
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AuthenticationService.dll"]
+ENTRYPOINT ["dotnet", "AuthenticationService_Api.dll"]
