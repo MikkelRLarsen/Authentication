@@ -12,7 +12,7 @@ WORKDIR /src
 COPY Authentication.sln ./
 
 # Kopiér kun de projekter, API’et afhænger af
-COPY AuthenticationService*.csproj AuthenticationService_Api/
+COPY AuthenticationService_Api/*.csproj AuthenticationService_Api/
 COPY AuthenticationService_Application/*.csproj AuthenticationService_Application/
 COPY AuthenticationSerivce_Domain/*.csproj AuthenticationSerivce_Domain/
 COPY AuthenticationService_Infrastructure/*.csproj AuthenticationService_Infrastructure/
