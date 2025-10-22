@@ -30,5 +30,12 @@ namespace AuthenticationService_Api.Controllers
 			// Return JWT token
 			return Ok(new { Token = jwtToken });
 		}
+
+		[HttpGet("test")]
+		public async Task<string> TestMethod()
+		{
+			return "Dette er en test";
+		}
+
 	}
 }
