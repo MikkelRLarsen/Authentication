@@ -1,4 +1,4 @@
-﻿namespace AuthenticationSerivce_Domain.Models
+﻿namespace AuthenticationService_Domain.Models
 {
 	public class User
 	{

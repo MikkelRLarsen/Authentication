@@ -1,5 +1,5 @@
-﻿using AuthenticationSerivce_Domain.DomainInterfaces;
-using AuthenticationSerivce_Domain.Models;
+﻿using AuthenticationService_Domain.DomainInterfaces;
+using AuthenticationService_Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

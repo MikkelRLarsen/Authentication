@@ -1,6 +1,6 @@
-﻿using AuthenticationSerivce_Domain.Models;
+﻿using AuthenticationService_Domain.Models;
 
-namespace AuthenticationSerivce_Domain.DomainInterfaces
+namespace AuthenticationService_Domain.DomainInterfaces
 {
 	public interface IAuthenticationDomainService
 	{

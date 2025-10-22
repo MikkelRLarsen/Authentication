@@ -14,7 +14,7 @@ COPY Authentication.sln ./
 # Kopiér kun de projekter, API’et afhænger af
 COPY AuthenticationService_Api/*.csproj AuthenticationService_Api/
 COPY AuthenticationService_Application/*.csproj AuthenticationService_Application/
-COPY AuthenticationSerivce_Domain/*.csproj AuthenticationSerivce_Domain/
+COPY AuthenticationService_Domain/*.csproj AuthenticationService_Domain/
 COPY AuthenticationService_Infrastructure/*.csproj AuthenticationService_Infrastructure/
 COPY AuthenticationService_Shared/*.csproj AuthenticationService_Shared/
 
@@ -24,7 +24,7 @@ RUN dotnet restore "Authentication.sln"
 # Kopiér kun kildekoden til de projekter
 COPY AuthenticationService_Api/ AuthenticationService_Api/
 COPY AuthenticationService_Application/ AuthenticationService_Application/
-COPY AuthenticationSerivce_Domain/ AuthenticationSerivce_Domain/
+COPY AuthenticationService_Domain/ AuthenticationService_Domain/
 COPY AuthenticationService_Infrastructure/ AuthenticationService_Infrastructure/
 COPY AuthenticationService_Shared/ AuthenticationService_Shared/
 

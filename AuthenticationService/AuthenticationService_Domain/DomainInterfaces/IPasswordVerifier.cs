@@ -1,4 +1,4 @@
-﻿namespace AuthenticationSerivce_Domain.DomainInterfaces
+﻿namespace AuthenticationService_Domain.DomainInterfaces
 {
 	public interface IPasswordVerifier
 	{

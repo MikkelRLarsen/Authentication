@@ -1,4 +1,4 @@
-﻿using AuthenticationSerivce_Domain.Models;
+﻿using AuthenticationService_Domain.Models;
 
 namespace AuthenticationService_Application.InfrastructureInterfaces
 {
