@@ -12,14 +12,10 @@ namespace AuthenticationServie_Shared.InversionOfControl.HttpSetup
 			//var baseUrl = config["Api:BaseUrl"] ?? throw new Exception("Api:BaseUrl not configuered");
 			string baseUrl = "localhost:8081";
 
-
 			// Microsoft’s factory
 			services.AddHttpClient();
 
-			// Abstract factory our services can depend on
-			services.AddSingleton<IApiHttpClientFactory, ApiHttpClientFactory>();
-
-			// Registrer named client
+			// Registrer named clients
 			services.AddHttpClient("AuthService", client => client.BaseAddress = new Uri($"{baseUrl}/auth/"));
 		}
 	}
