@@ -1,4 +1,5 @@
-﻿using AuthenticationServie_Shared.InversionOfControl.ExternalConfig;
+﻿using AuthenticationService_Shared.NewFolder;
+using AuthenticationServie_Shared.InversionOfControl.ExternalConfig;
 using AuthenticationServie_Shared.InversionOfControl.HttpSetup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,8 @@ namespace AuthenticationServie_Shared
 			// Singleton Services added here
 
 			// Scoped Services added here
-			// RegisterService<IEmployeeService, EmployeeService>(services, ServiceLifetimeType.Scoped);		 
+			// RegisterService<IEmployeeService, EmployeeService>(services, ServiceLifetimeType.Scoped);	
+			RegisterService<ITestInterface, TestImplementation>(services, ServiceLifetimeType.Scoped);	 
 
 			// Transient Services added here
 

@@ -21,9 +21,19 @@ namespace AuthenticationService
             // Register our Services to our IoC-Container
             ServiceProvider_IoC.RegisterServices(builder.Services, builder.Configuration);
 
-            var app = builder.Build();
+			builder.Services.AddSwaggerGen();
 
-            app.Run();
+			var app = builder.Build();
+
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseSwagger();
+				app.UseSwaggerUI();
+			}
+
+            app.MapControllers();
+
+			app.Run();
         }
     }
 }

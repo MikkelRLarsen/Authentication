@@ -1,6 +1,7 @@
 ﻿using AuthenticationService_Application.Commands.Login;
 using AuthenticationService_Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using AuthenticationService_Shared.NewFolder;
 
 namespace AuthenticationService_Api.Controllers
 {
@@ -9,10 +10,12 @@ namespace AuthenticationService_Api.Controllers
 	public class AuthController : ControllerBase
 	{
 		private readonly ILoginCommand _loginCommand;
+		private readonly ITestInterface _test;
 
-		public AuthController(ILoginCommand loginCommand)
+		public AuthController(ITestInterface testImplementation)
 		{
-			_loginCommand = loginCommand;
+			//_loginCommand = loginCommand;
+			_test = testImplementation;
 		}
 
 		// POST: api/auth/Login
@@ -34,7 +37,7 @@ namespace AuthenticationService_Api.Controllers
 		[HttpGet("test")]
 		public async Task<string> TestMethod()
 		{
-			return "Dette er en test";
+			return _test.ReturnARandomString();
 		}
 
 	}
