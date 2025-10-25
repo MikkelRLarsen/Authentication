@@ -16,6 +16,7 @@ namespace AuthenticationServie_Shared.InversionOfControl.ExternalConfig
 			// Add configurations -> Examples Jwt:Secret could be seen as Jwt__Secret in DockerCompose
 			_configurations.Add("JwtSecret", configuration["Jwt:Secret"]!);
 			_configurations.Add("DefaultConnection", configuration["Default:Connection"]!);
+			_configurations.Add("RandomString", configuration["PlaceholderInformation:RandomString"]!);
 		}
 
 		public string GetValue(string key)

@@ -1,29 +1,28 @@
 ﻿using AuthenticationService_Shared.TestFolder.ReturnSingleton;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using AuthenticationServie_Shared.InversionOfControl.ExternalConfig;
 
 namespace AuthenticationService_Shared.TestFolder.ReturnScoped
 {
 	public class TestImplementation : ITestInterface
 	{
-		private readonly string RandomStringAsANumber;
-		private readonly ITestInterfaceSingleton singleton;
-		public TestImplementation(ITestInterfaceSingleton depedency)
+		private readonly string _randomStringAsANumber;
+		private readonly ITestInterfaceSingleton _iTestInterfaceSingleton;
+		private readonly IConfigurationDictonary _iConfigurationDictonary;
+		public TestImplementation(ITestInterfaceSingleton iTestInterfaceSingleton, IConfigurationDictonary configurationDictonary)
 		{
 			Random rnd = new();
-			RandomStringAsANumber = rnd.Next(1, int.MaxValue).ToString();
+			_randomStringAsANumber = rnd.Next(1, int.MaxValue).ToString();
 
-			singleton = depedency;
+			_iTestInterfaceSingleton = iTestInterfaceSingleton;
+			_iConfigurationDictonary = configurationDictonary;
 		}
 
 		public string ReturnARandomString()
 		{
-			string singletonString = singleton.ReturnAString();
-			return $"{RandomStringAsANumber} as a Scoped & {singletonString} as a Singleton";
+			string singletonString = _iTestInterfaceSingleton.ReturnAString();
+			string configurationString = _iConfigurationDictonary.GetValue("RandomString");
+
+			return $"{_randomStringAsANumber} as a Scoped & {singletonString} as a Singleton & {configurationString}";
 		}
 	}
 }
