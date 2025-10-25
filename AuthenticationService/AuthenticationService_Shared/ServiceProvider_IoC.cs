@@ -1,4 +1,5 @@
-﻿using AuthenticationService_Shared.NewFolder;
+﻿using AuthenticationService_Shared.TestFolder.ReturnScoped;
+using AuthenticationService_Shared.TestFolder.ReturnSingleton;
 using AuthenticationServie_Shared.InversionOfControl.ExternalConfig;
 using AuthenticationServie_Shared.InversionOfControl.HttpSetup;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,7 @@ namespace AuthenticationServie_Shared
 			HttpClientModule.RegisterHttpClients(services, configuration);
 
 			// Singleton Services added here
+			RegisterService<ITestInterfaceSingleton, TestImplementationSingleton>(services, ServiceLifetimeType.Singleton);
 
 			// Scoped Services added here
 			// RegisterService<IEmployeeService, EmployeeService>(services, ServiceLifetimeType.Scoped);	

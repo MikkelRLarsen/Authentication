@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuthenticationService_Shared.NewFolder
+namespace AuthenticationService_Shared.TestFolder.ReturnScoped
 {
 	public interface ITestInterface
 	{

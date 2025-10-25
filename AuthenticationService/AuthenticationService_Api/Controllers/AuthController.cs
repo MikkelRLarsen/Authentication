@@ -1,7 +1,7 @@
 ﻿using AuthenticationService_Application.Commands.Login;
 using AuthenticationService_Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using AuthenticationService_Shared.NewFolder;
+using AuthenticationService_Shared.TestFolder.ReturnScoped;
 
 namespace AuthenticationService_Api.Controllers
 {
