@@ -33,6 +33,9 @@ namespace AuthenticationService
 
             app.MapControllers();
 
+            app.Urls.Clear();
+			app.Urls.Add("http://0.0.0.0:8001");
+
 			app.Run();
         }
     }
